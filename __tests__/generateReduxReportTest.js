@@ -50,7 +50,7 @@ describe('generateReduxReport', () => {
         },
         d: {}
       },
-      f: [5, null, null, null, null],
+      f: [5],
       g: [
         null,
         null,
