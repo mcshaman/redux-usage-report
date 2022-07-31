@@ -9,7 +9,7 @@ const FadeSpan = styled.span`
   line-height: 1.4;
 `
 
-const KeySpan = FadeSpan.extend`
+const KeySpan = styled(FadeSpan)`
   position: relative;
   color: ${props => (props.breakpointActive ? "red" : null)};
   font-weight: ${props => (props.breakpointActive ? "bold" : "normal")};
