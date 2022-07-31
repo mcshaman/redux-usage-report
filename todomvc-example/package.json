@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "react-scripts": "^1.0.2"
+    "react-scripts": "^5.0.1"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -23,5 +23,17 @@
     "eject": "react-scripts eject",
     "test": "react-scripts test",
     "update-redux-report": "cd ../; npm run build; cp -r dist/ todomvc-example/src/redux-usage-report"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
