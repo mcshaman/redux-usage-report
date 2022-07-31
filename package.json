@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "NODE_ENV=test jest",
-    "build": "NODE_ENV=production ./node_modules/.bin/babel src -d dist --ignore node_modules,src/lib; cp -r src/lib dist/",
+    "build": "NODE_ENV=production ./node_modules/.bin/babel src -d dist --ignore node_modules",
     "prepublish": "npm run build"
   },
   "author": "Alex Holachek",

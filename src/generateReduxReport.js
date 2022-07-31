@@ -4,18 +4,6 @@ import { isObjectOrArray } from "./utility"
 import { createMakeProxyFunction } from "./trackObjectUse"
 import debounce from "lodash/debounce"
 
-// we need source maps for the stack traces
-// or else we won't know whether to ignore object access
-// from non-local code (e.g node_modules, browser extensions...)
-// this takes the stack trace file name from e.g.  
-// fileName: "http://localhost:3001/static/js/bundle.js",
-// to "http://localhost:3000/Users/alexholachek/Desktop/work/redux-usage-report/todomvc-example/src/containers/App.js
-// this raises an error during jest tests so limit to development
-if (process.env.NODE_ENV === "development") {
-  require("./lib/browser-source-map-support")
-  sourceMapSupport.install() // eslint-disable-line
-}
-
 const localStorageKey = "reduxUsageReportBreakpoints"
 
 // so that JSON.stringify doesn't remove all undefined fields
