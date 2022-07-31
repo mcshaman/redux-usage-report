@@ -6,7 +6,7 @@
     "react-scripts": "^5.0.1"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
+    "classnames": "^2.3.1",
     "prop-types": "^15.5.10",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
