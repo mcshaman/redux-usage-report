@@ -33,7 +33,7 @@ export default class MainSection extends Component {
         <span>
           <input className="toggle-all"
                  type="checkbox"
-                 checked={completedCount === todos.length}
+                 defaultChecked={completedCount === todos.length}
                  />
           <label onClick={actions.completeAll}/>
         </span>
