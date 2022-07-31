@@ -2,7 +2,7 @@ import { diff } from "deep-object-diff"
 import StackTrace from "stacktrace-js"
 import { isObjectOrArray } from "./utility"
 import { createMakeProxyFunction } from "./trackObjectUse"
-import debounce from "lodash.debounce"
+import debounce from "lodash/debounce"
 
 // we need source maps for the stack traces
 // or else we won't know whether to ignore object access

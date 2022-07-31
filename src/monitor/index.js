@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
-import isEqual from "lodash.isequal"
+import isEqual from "lodash/isEqual"
 import theme from "./theme"
 import Info from "./Info"
 import ReduxTree from "./ReduxTree"
