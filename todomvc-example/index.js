@@ -7,7 +7,7 @@ import App from "./containers/App"
 import reducer from "./reducers"
 import "todomvc-app-css/index.css"
 
-import generateReduxReport from "./redux-usage-report"
+import generateReduxReport from "../src"
 import DevTools from "./containers/DevTools"
 
 const enhancer = compose(
