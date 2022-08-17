@@ -5,9 +5,11 @@ export const UNPROXIED_OBJ_KEY = "**__GET_INITIAL_PROXY_VAL__**"
 const getUnproxiedObject = target =>
   target[UNPROXIED_OBJ_KEY] !== undefined ? target[UNPROXIED_OBJ_KEY] : target
 
+const keySeparator = '~';
+
 export const getChildObject = (obj, stateLocation) => {
   if (!stateLocation) return obj
-  return stateLocation.split(".").reduce((acc, key) => {
+  return stateLocation.split(keySeparator).reduce((acc, key) => {
     return acc[key]
   }, obj)
 }
@@ -33,7 +35,12 @@ export const createMakeProxyFunction = ({
 
         if (shouldSkipProxy()) return value
 
-        const newStateLocation = stateLocation ? stateLocation + "." + propKey : propKey
+        if (propKey.includes(keySeparator)) {
+          console.warn(`redux-usage-report: Property key '${propKey}' includes '${keySeparator}' so cannot measure usage`)
+          return value
+        }
+
+        const newStateLocation = stateLocation ? stateLocation + keySeparator + propKey : propKey
 
         // allow people to examine the stack at certain access points
         if (getBreakpoint() === newStateLocation) {

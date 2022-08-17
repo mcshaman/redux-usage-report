@@ -16,9 +16,11 @@ var getUnproxiedObject = function getUnproxiedObject(target) {
   return target[UNPROXIED_OBJ_KEY] !== undefined ? target[UNPROXIED_OBJ_KEY] : target;
 };
 
+var keySeparator = '~';
+
 var getChildObject = function getChildObject(obj, stateLocation) {
   if (!stateLocation) return obj;
-  return stateLocation.split(".").reduce(function (acc, key) {
+  return stateLocation.split(keySeparator).reduce(function (acc, key) {
     return acc[key];
   }, obj);
 };
@@ -45,7 +47,13 @@ var createMakeProxyFunction = function createMakeProxyFunction(_ref) {
         var value = target[propKey];
         if (!Object.hasOwnProperty.call(target, propKey) || Array.isArray(target) && propKey === "length") return value;
         if (shouldSkipProxy()) return value;
-        var newStateLocation = stateLocation ? stateLocation + "." + propKey : propKey; // allow people to examine the stack at certain access points
+
+        if (propKey.includes(keySeparator)) {
+          console.warn("redux-usage-report: Property key '".concat(propKey, "' includes '").concat(keySeparator, "' so cannot measure usage"));
+          return value;
+        }
+
+        var newStateLocation = stateLocation ? stateLocation + keySeparator + propKey : propKey; // allow people to examine the stack at certain access points
 
         if (getBreakpoint() === newStateLocation) {
           // explore the callstack to see when your app accesses a value

@@ -17,7 +17,7 @@ describe("getChildObject", () => {
   }
 
   it("returns the part of the object indicated by the provided string of keys", () => {
-    expect(getChildObject(testObj, "b.c.d.2.e")).toEqual({ f: "g" })
+    expect(getChildObject(testObj, "b~c~d~2~e")).toEqual({ f: "g" })
   })
   it("returns the object if the key list is empty", () => {
     expect(getChildObject(testObj, "")).toEqual(testObj)

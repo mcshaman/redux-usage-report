@@ -8,6 +8,11 @@ describe('trackObjectUse', () => {
     },
     e: [1, 2, 3, 4]
   }
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  })
+
   it('returns an object with only the parts of the original object that have been accessed', () => {
     const toTrack = JSON.parse(JSON.stringify(obj))
     const { trackedObject, accessedProperties } = trackObjectUse(toTrack)
@@ -50,5 +55,46 @@ describe('trackObjectUse', () => {
     const test4 = trackedObject.b.c.d[3]
 
     expect(accessedProperties).toEqual({ b: { c: { d: [1, undefined, undefined, 4] } } })
+  })
+
+  it.skip("shows a warning when property keys contain a '~' character", () => {
+    const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
+
+    const obj = {
+      foo: {
+        bar: [1, 2, 3, 4]
+      },
+      "foo~bar": {
+        "baz.qux": [1, 2, 3, 4]
+      },
+    }
+
+    const { trackedObject, accessedProperties } = trackObjectUse(obj)
+    expect(warn).toBeCalled()
+  })
+
+  it('does not fail when property keys contain a "." character', () => {
+    const obj = {
+      foo: {
+        bar: [1, 2, 3, 4]
+      },
+      "foo.bar": {
+        "baz.qux": [1, 2, 3, 4]
+      },
+    }
+    const { trackedObject, accessedProperties } = trackObjectUse(obj)
+
+    const test1 = trackedObject["foo.bar"]
+    const test2 = test1["baz.qux"][2]
+    const test3 = trackedObject.foo.bar[1]
+
+    expect(accessedProperties).toEqual({
+      foo: {
+        bar: [undefined, 2, undefined, undefined]
+      },
+      "foo.bar": {
+        "baz.qux": [undefined, undefined, 3, undefined]
+      }
+    })
   })
 })
