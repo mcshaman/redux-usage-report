@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "NODE_ENV=test jest",
-    "build": "NODE_ENV=production ./node_modules/.bin/babel src -d dist --ignore node_modules",
-    "prepublish": "npm run build",
+    "clean": "rm -rf dist",
+    "build": "NODE_ENV=production babel src -d dist --ignore node_modules",
+    "prepublish": "npm run clean && npm run build",
     "dev": "webpack-dev-server"
   },
   "author": "Alex Holachek",
@@ -37,8 +38,8 @@
     "path": "^0.12.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-redux": "^8.0.2",
-    "react-test-renderer": "^18.2.0",
+    "react-redux": "^7.0.0",
+    "react-test-renderer": "^16.2.0",
     "redux": "^4.2.0",
     "redux-devtools": "^3.7.0",
     "redux-devtools-dock-monitor": "^1.2.0",
