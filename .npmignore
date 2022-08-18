@@ -2,6 +2,7 @@ src
 todomvc-example
 node_modules
 .babelrc
+.eslintrc.json
 .vscode
 .cache
 .yarn-error.log
