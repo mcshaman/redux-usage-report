@@ -40,11 +40,12 @@ const shouldSkipProxy = () => {
   return false
 }
 
-// this function takes a reducer and returns 
+// this function takes a reducer and returns
 // an augmented reducer that tracks redux usage
-function generateReduxReport(global, rootReducer) {
+function generateReduxReport(global, rootReducer, skipAccessOriginCheck) {
   globalObjectCache = globalObjectCache || global
   global.reduxReport = global.reduxReport || {
+    __skipAccessOriginCheck: skipAccessOriginCheck,
     accessedState: {},
     state: {},
     setOnChangeCallback(cb) {
@@ -102,8 +103,8 @@ function generateReduxReport(global, rootReducer) {
 }
 
 // "next" is either createStore or a wrapped version from another enhancer
-const storeEnhancer = (global = window) => next => (reducer, ...args) => {
-  const wrappedReducer = generateReduxReport(global, reducer)
+const storeEnhancer = ({ global = window, skipAccessOriginCheck = false } = {}) => next => (reducer, ...args) => {
+  const wrappedReducer = generateReduxReport(global, reducer, skipAccessOriginCheck)
   const store = next(wrappedReducer, ...args)
   return { ...store, replaceReducer: nextReducer => generateReduxReport(global, nextReducer) }
 }

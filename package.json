@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "NODE_ENV=test jest",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "build": "NODE_ENV=production babel src -d dist --ignore node_modules",
     "prepublish": "npm run clean && npm run build",
     "dev": "webpack-dev-server"
@@ -43,6 +43,7 @@
     "redux": "^4.2.0",
     "redux-devtools": "^3.7.0",
     "redux-devtools-dock-monitor": "^1.2.0",
+    "rimraf": "^3.0.2",
     "style-loader": "^3.3.1",
     "todomvc-app-css": "^2.4.2",
     "webpack": "^5.74.0",

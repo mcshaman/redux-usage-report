@@ -55,13 +55,14 @@ var shouldSkipProxy = function shouldSkipProxy() {
   }
 
   return false;
-}; // this function takes a reducer and returns 
+}; // this function takes a reducer and returns
 // an augmented reducer that tracks redux usage
 
 
-function generateReduxReport(global, rootReducer) {
+function generateReduxReport(global, rootReducer, skipAccessOriginCheck) {
   globalObjectCache = globalObjectCache || global;
   global.reduxReport = global.reduxReport || {
+    __skipAccessOriginCheck: skipAccessOriginCheck,
     accessedState: {},
     state: {},
     setOnChangeCallback: function setOnChangeCallback(cb) {
@@ -121,10 +122,15 @@ function generateReduxReport(global, rootReducer) {
 
 
 var storeEnhancer = function storeEnhancer() {
-  var global = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window;
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref$global = _ref.global,
+      global = _ref$global === void 0 ? window : _ref$global,
+      _ref$skipAccessOrigin = _ref.skipAccessOriginCheck,
+      skipAccessOriginCheck = _ref$skipAccessOrigin === void 0 ? false : _ref$skipAccessOrigin;
+
   return function (next) {
     return function (reducer) {
-      var wrappedReducer = generateReduxReport(global, reducer);
+      var wrappedReducer = generateReduxReport(global, reducer, skipAccessOriginCheck);
 
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
