@@ -35,7 +35,7 @@ const shouldSkipProxy = () => {
       (initiatingFunc.fileName.match(/\.\/~\/|\/node_modules\//) ||
         initiatingFunc.fileName.match(/extension:\/\//))
 
-    if (!!initiatingFuncNotLocal) return true
+    if (initiatingFuncNotLocal) return true
   }
   return false
 }
